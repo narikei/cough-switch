@@ -1,0 +1,38 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+  }
+  .item {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+    transition: opacity .5s ease;
+  }
+  .item.isActive {
+    opacity: 1;
+  }
+</style>
+
+<div id="talkImage" class="item">
+  <img src="images/talk.png" width="200" height="200">
+</div>
+
+<script>
+  const { ipcRenderer } = require('electron');
+
+  (() => {
+    const talkImage = document.querySelector('#talkImage');
+
+    ipcRenderer.on('talk', (msg) => {
+      talkImage.classList.add('isActive');
+    });
+
+    ipcRenderer.on('mute', (msg) => {
+      talkImage.classList.remove('isActive');
+    });
+})();
+</script>
